@@ -1,0 +1,12 @@
+*.class
+target/
+.settings/
+.metadata/
+.project
+.classpath
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
