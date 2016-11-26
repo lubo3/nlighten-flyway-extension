@@ -2,9 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <!-- jboss-parent only provides versions of maven plugin and their default configurations this makes 
-    pom.xml shorter and more consistent. It also allows simple way to override versions of plugins from parent 
-    pom -->
+
   <parent>
     <groupId>org.jboss</groupId>
     <artifactId>jboss-parent</artifactId>
@@ -28,23 +26,16 @@
     <!--set source level to 1.8 -->
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
-
+    <version.flyway>4.0.3</version.flyway>
+    <jboss.home></jboss.home>
   </properties>
 
 
   <build>
-    <!-- Maven will append the version to the finalName (which is the name given to the generated war, 
-      and hence the context root) -->
     <finalName>${project.artifactId}</finalName>
     <plugins>
-      <!--<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
-        <version>${version.surefire.plugin}</version> <configuration> <redirectTestOutputToFile>true</redirectTestOutputToFile> 
-        <enableAssertions>true</enableAssertions> <argLine>-Xmx512m</argLine> <systemProperties> <property> <name>jboss.home</name> 
-        <value>${jboss.home}</value> </property> </systemProperties> <includes> <include>**/*TestCase.java</include> 
-        </includes> <forkMode>once</forkMode> </configuration> </plugin> -->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>${version.assembly.plugin}</version>
         <configuration>
           <filters>
             <filter>src/assemble/filter.properties</filter>
@@ -58,7 +49,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <inherited>false</inherited>
-        <version>${version.antrun.plugin}</version>
         <executions>
           <execution>
             <id>build-dist</id>
@@ -88,17 +78,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>com.googlecode.flyway</groupId>
-        <artifactId>flyway-maven-plugin</artifactId>
-        <version>1.7</version>
-        <configuration>
-          <driver>org.postgresql.Driver</driver>
-          <url>jdbc:postgresql://localhost:5432/postgres</url>
-          <user>postgres</user>
-          <password>password</password>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
@@ -127,6 +106,11 @@
         <scope>test</scope>
         <version>${version.junit}</version>
       </dependency>
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>${version.flyway}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -153,17 +137,6 @@
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
-      <version>4.0.3</version>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.3.170</version>
-    </dependency>
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>9.1-901-1.jdbc4</version>
     </dependency>
   </dependencies>
 </project>
