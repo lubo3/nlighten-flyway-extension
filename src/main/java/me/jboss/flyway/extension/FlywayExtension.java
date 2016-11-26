@@ -11,11 +11,14 @@ import org.jboss.as.controller.descriptions.StandardResourceDescriptionResolver;
 import org.jboss.as.controller.parsing.ExtensionParsingContext;
 
 
+/**
+ * An extension to the JBoss Application Server.
+ * 
+ * @author lubo
+ */
 public class FlywayExtension implements Extension {
 
-  /**
-   * The name space used for the {@code subsystem} element
-   */
+  /** The name space used for the {@code subsystem} element. */
   public static final String NAMESPACE = "urn:me.jboss.flyway:1.0";
 
   /**
@@ -24,15 +27,23 @@ public class FlywayExtension implements Extension {
   public static final String SUBSYSTEM_NAME = "flyway";
 
 
+  /** The Constant RESOURCE_NAME. */
   private static final String RESOURCE_NAME =
       FlywayExtension.class.getPackage().getName() + ".LocalDescriptions";
 
-  protected static final String TYPE = "type";
+  /** The Constant PATH. */
   protected static final String PATH = "path";
+
+  /** The Constant SUBSYSTEM_PATH. */
   protected static final PathElement SUBSYSTEM_PATH =
       PathElement.pathElement(SUBSYSTEM, SUBSYSTEM_NAME);
-  protected static final PathElement TYPE_PATH = PathElement.pathElement(TYPE);
 
+  /**
+   * Gets the resource description resolver.
+   *
+   * @param keyPrefix the key prefix
+   * @return the resource description resolver
+   */
   static StandardResourceDescriptionResolver getResourceDescriptionResolver(
       final String keyPrefix) {
     String prefix = SUBSYSTEM_NAME + (keyPrefix == null ? "" : "." + keyPrefix);
@@ -40,11 +51,13 @@ public class FlywayExtension implements Extension {
         FlywayExtension.class.getClassLoader(), true, false);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void initializeParsers(ExtensionParsingContext context) {
     context.setSubsystemXmlMapping(SUBSYSTEM_NAME, NAMESPACE, new FlywayParser());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void initialize(ExtensionContext context) {
     final SubsystemRegistration subsystem =

@@ -10,10 +10,19 @@ import org.jboss.as.controller.ReloadRequiredRemoveStepHandler;
 import org.jboss.as.controller.operations.common.GenericSubsystemDescribeHandler;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 
+/**
+ * The Class FlywayRootDefinition.
+ * 
+ * @author lubo
+ */
 public class FlywayRootDefinition extends PersistentResourceDefinition {
 
+  /** The Constant INSTANCE. */
   public static final FlywayRootDefinition INSTANCE = new FlywayRootDefinition();
 
+  /**
+   * Instantiates a new flyway root definition.
+   */
   private FlywayRootDefinition() {
     super(FlywayExtension.SUBSYSTEM_PATH, FlywayExtension.getResourceDescriptionResolver(null),
         // We always need to add an 'add' operation
@@ -22,14 +31,16 @@ public class FlywayRootDefinition extends PersistentResourceDefinition {
         ReloadRequiredRemoveStepHandler.INSTANCE);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<AttributeDefinition> getAttributes() {
     return Collections.emptyList();
   }
 
+  /** {@inheritDoc} */
   @Override
   protected List<? extends PersistentResourceDefinition> getChildren() {
-    return Collections.singletonList(DataSourceNameDefinition.INSTANCE);
+    return Collections.emptyList();
   }
 
   /**

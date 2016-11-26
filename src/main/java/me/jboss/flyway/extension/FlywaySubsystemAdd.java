@@ -6,17 +6,24 @@ import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.registry.Resource;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
+import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 
 import me.jboss.flyway.deployment.SubsystemDeploymentProcessor;
 
 /**
  * Handler responsible for adding the subsystem resource to the model
+ * 
+ * @author lubo
  */
 class FlywaySubsystemAdd extends AbstractBoottimeAddStepHandler {
 
+  /** The Constant INSTANCE. */
   static final FlywaySubsystemAdd INSTANCE = new FlywaySubsystemAdd();
 
+  /**
+   * Instantiates a new flyway subsystem add.
+   */
   private FlywaySubsystemAdd() {}
 
 
@@ -30,9 +37,8 @@ class FlywaySubsystemAdd extends AbstractBoottimeAddStepHandler {
     // see SubDeploymentProcessor for explanation of the phases
     context.addStep(new AbstractDeploymentChainStep() {
       public void execute(DeploymentProcessorTarget processorTarget) {
-        processorTarget.addDeploymentProcessor(FlywayExtension.SUBSYSTEM_NAME,
-            SubsystemDeploymentProcessor.PHASE, SubsystemDeploymentProcessor.PRIORITY,
-            new SubsystemDeploymentProcessor());
+        processorTarget.addDeploymentProcessor(FlywayExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES,
+            Phase.PARSE_EJB_INJECTION_ANNOTATION, new SubsystemDeploymentProcessor());
 
       }
     }, OperationContext.Stage.RUNTIME);
