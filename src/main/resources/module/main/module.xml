@@ -1,6 +1,7 @@
 <module xmlns="urn:jboss:module:1.1" name="me.jboss.flyway">
   <resources>
-    <resource-root path="flyway-extension.jar" />
+    <resource-root path="wildfly-flyway-extension.jar" />
+    <resource-root path="flyway-core-4.0.3.jar" />
   </resources>
 
   <dependencies>
@@ -12,5 +13,7 @@
     <module name="org.jboss.msc" />
     <module name="org.jboss.logging" />
     <module name="org.jboss.vfs" />
+    <module name="org.jboss.as.connector"/>
+    <module name="org.jboss.as.naming"/>
   </dependencies>
 </module>
