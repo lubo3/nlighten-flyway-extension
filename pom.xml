@@ -16,6 +16,7 @@
     <version.junit>4.12</version.junit>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <module.name>me.nlighten.wildfly-flyway-extension</module.name>
+    <module.path>me/nlighten/wildfly-flyway-extension</module.path>
     <!--set source level to 1.8 -->
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -34,46 +35,24 @@
     <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <filters>
-            <filter>src/assemble/filter.properties</filter>
-          </filters>
-          <descriptors>
-            <descriptor>src/assemble/distribution.xml</descriptor>
-          </descriptors>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <!--<inherited>false</inherited>-->
+        <inherited>false</inherited>
         <version>1.8</version>
         <executions>
           <execution>
             <phase>package</phase>
-            <!--            <id>build-dist</id>-->
+              <id>build-dist</id>
             <goals>
               <goal>run</goal>
             </goals>
-           
             <configuration>
               <target>
-                <!-- Replace the '.' in ${module.name} with '/' to get its path -->
-                <tempfile property="temp.file" />
-                <echo message="${module.name}" file="${temp.file}" />
-                <replace file="${temp.file}" token="." value="/" />
-                <loadfile srcfile="${temp.file}" property="module.path" />
-                <delete file="${temp.file}" />
-                <echo>Vars: temp.file ${temp.file} mod.path ${module.path}</echo>
-
                 <delete dir="target/module" />
                 <property name="module.dir" value="target/module/${module.path}/main" />
-
                 <copy file="src/main/resources/module/main/module.xml" tofile="${module.dir}/module.xml" />
                 <copy file="target/${project.artifactId}.jar" todir="${module.dir}" />
                 <copy file="${org.flywaydb:flyway-core:jar}" todir="${module.dir}" />
-
                 <echo>Module ${module.name} has been created in the target/module directory. Copy to
                   your WildFly installation.</echo>
                 <zip destfile="target/module.zip" basedir="target/module/"   /> 
@@ -102,6 +81,43 @@
       </plugin>-->
     </plugins>
   </build>
+  
+  <profiles>
+      <profile>
+          <id>add-to-wildfly</id>
+          <build>
+              <plugins>
+                  <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <inherited>false</inherited>
+                    <version>1.8</version>
+                    <executions>
+                      <execution>
+                        <phase>package</phase>
+                          <id>install-to-server</id>
+                        <goals>
+                          <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                            <copy todir="${wildfly.home}/modules/">
+                                <fileset dir="target/module" includes="**/*" />
+                               </copy>
+                                <echo>Module ${module.name} has been copied to ${wildfly.home}/modules.</echo>
+                            </tasks>
+<!--                          <target>
+                            <copy  folder="target/module" tofile="${wildfly.home}/modules/" />
+                            <echo>Module ${module.name} has been copied to ${wildfly.home}/modules.</echo>
+                          </target>-->
+                        </configuration>
+                      </execution>
+                    </executions>
+                  </plugin>
+              </plugins>
+          </build>
+      </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
