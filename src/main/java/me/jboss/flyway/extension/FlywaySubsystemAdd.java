@@ -12,7 +12,7 @@ import org.jboss.dmr.ModelNode;
 import me.jboss.flyway.deployment.SubsystemDeploymentProcessor;
 
 /**
- * Handler responsible for adding the subsystem resource to the model
+ * The FlywaySubsystemAdd class is responsible for adding the extension subsystem resource.
  * 
  * @author lubo
  */
@@ -42,6 +42,5 @@ class FlywaySubsystemAdd extends AbstractBoottimeAddStepHandler {
 
       }
     }, OperationContext.Stage.RUNTIME);
-
   }
 }

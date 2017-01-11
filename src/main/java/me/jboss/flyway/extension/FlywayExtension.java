@@ -12,7 +12,7 @@ import org.jboss.as.controller.parsing.ExtensionParsingContext;
 
 
 /**
- * An extension to the JBoss Application Server.
+ * An Flyway extension to the Wildfly Application Server. Initialize this extension and XML parser.
  * 
  * @author lubo
  */
@@ -21,11 +21,8 @@ public class FlywayExtension implements Extension {
   /** The name space used for the {@code subsystem} element. */
   public static final String NAMESPACE = "urn:me.jboss.flyway:1.0";
 
-  /**
-   * The name of our subsystem within the model.
-   */
+  /** The name of our subsystem within the model. */
   public static final String SUBSYSTEM_NAME = "flyway";
-
 
   /** The Constant RESOURCE_NAME. */
   private static final String RESOURCE_NAME =
@@ -44,7 +41,7 @@ public class FlywayExtension implements Extension {
    * @param keyPrefix the key prefix
    * @return the resource description resolver
    */
-  static StandardResourceDescriptionResolver getResourceDescriptionResolver(
+  public static StandardResourceDescriptionResolver getResourceDescriptionResolver(
       final String keyPrefix) {
     String prefix = SUBSYSTEM_NAME + (keyPrefix == null ? "" : "." + keyPrefix);
     return new StandardResourceDescriptionResolver(prefix, RESOURCE_NAME,
