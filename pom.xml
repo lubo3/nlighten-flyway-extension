@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-<<<<<<< HEAD
-  <groupId>me.nlighten</groupId>
-=======
   <groupId>me.wildfly</groupId>
->>>>>>> add_default_datasource_logging_comments
   <artifactId>wildfly-flyway-extension</artifactId>
   <version>1.0-SNAPSHOT</version>
 
@@ -19,13 +15,8 @@
     <version.wildfly.core>2.0.10.Final</version.wildfly.core>
     <version.junit>4.12</version.junit>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<<<<<<< HEAD
-    <module.name>me.nlighten.wildfly-flyway-extension</module.name>
-    <module.path>me/nlighten/wildfly-flyway-extension</module.path>
-=======
     <module.name>me.wildfly.flyway-extension</module.name>
     <module.path>me/wildfly/flyway-extension</module.path>
->>>>>>> add_default_datasource_logging_comments
     <!--set source level to 1.8 -->
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -51,11 +42,7 @@
         <executions>
           <execution>
             <phase>package</phase>
-<<<<<<< HEAD
-              <id>build-dist</id>
-=======
             <id>build-dist</id>
->>>>>>> add_default_datasource_logging_comments
             <goals>
               <goal>run</goal>
             </goals>
@@ -68,74 +55,12 @@
                 <copy file="${org.flywaydb:flyway-core:jar}" todir="${module.dir}" />
                 <echo>Module ${module.name} has been created in the target/module directory. Copy to
                   your WildFly installation.</echo>
-<<<<<<< HEAD
-                <zip destfile="target/module.zip" basedir="target/module/"   /> 
-=======
                 <zip destfile="target/module.zip" basedir="target/module/" />
->>>>>>> add_default_datasource_logging_comments
               </target>
             </configuration>
           </execution>
         </executions>
       </plugin>
-<<<<<<< HEAD
-      <!--      <plugin>
-        <groupId>org.wildfly.plugins</groupId>
-        <artifactId>wildfly-extension-maven-plugin</artifactId>
-        <version>0.7.0</version>
-        <configuration>
-          <moduleZip>${project.build.directory}/module.zip</moduleZip>
-          <jbossHome>${wildfly_home}/</jbossHome>
-        </configuration>
-        <executions>
-          <execution>
-            <id>build-dist</id>
-            <phase>install</phase>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>-->
-    </plugins>
-  </build>
-  
-  <profiles>
-      <profile>
-          <id>add-to-wildfly</id>
-          <build>
-              <plugins>
-                  <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <inherited>false</inherited>
-                    <version>1.8</version>
-                    <executions>
-                      <execution>
-                        <phase>package</phase>
-                          <id>install-to-server</id>
-                        <goals>
-                          <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                            <copy todir="${wildfly.home}/modules/">
-                                <fileset dir="target/module" includes="**/*" />
-                               </copy>
-                                <echo>Module ${module.name} has been copied to ${wildfly.home}/modules.</echo>
-                            </tasks>
-<!--                          <target>
-                            <copy  folder="target/module" tofile="${wildfly.home}/modules/" />
-                            <echo>Module ${module.name} has been copied to ${wildfly.home}/modules.</echo>
-                          </target>-->
-                        </configuration>
-                      </execution>
-                    </executions>
-                  </plugin>
-              </plugins>
-          </build>
-      </profile>
-=======
       <!-- <plugin> <groupId>org.wildfly.plugins</groupId> <artifactId>wildfly-extension-maven-plugin</artifactId> 
         <version>0.7.0</version> <configuration> <moduleZip>${project.build.directory}/module.zip</moduleZip> 
         <jbossHome>${wildfly_home}/</jbossHome> </configuration> <executions> <execution> <id>build-dist</id> 
@@ -176,7 +101,6 @@
         </plugins>
       </build>
     </profile>
->>>>>>> add_default_datasource_logging_comments
   </profiles>
 
   <dependencies>
