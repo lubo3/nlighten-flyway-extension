@@ -1,4 +1,4 @@
-package me.jboss.flyway.deployment;
+package me.wildfly.flyway.extension.deployment;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,37 +17,14 @@ import org.jboss.as.server.deployment.module.ResourceRoot;
 import org.jboss.logging.Logger;
 import org.jboss.vfs.VirtualFile;
 
-import me.jboss.flyway.exception.FlywayException;
-import me.jboss.flyway.exception.FlywayExceptionMessage;
-
 /**
  * The SubsystemDeploymentProcessor class handle database auto-migration during the deployment
  * process.
  *
  * @author lubo
  */
-public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
-
-  /** The migration folder war path. */
-  private static String MIGRATION_FOLDER_WAR_PATH = "WEB-INF/classes/db/migration";
-
-  /** The migration folder jar path. */
-  private static String MIGRATION_FOLDER_JAR_PATH = "src/main/resources/db/migration";
-
-  /** The persistence xml war path. */
-  private static String PERSISTENCE_XML_WAR_PATH = "WEB-INF/classes/META-INF/persistence.xml";
-
-  /** The persistence xml jar path. */
-  private static String PERSISTENCE_XML_JAR_PATH = "src/main/resources/META-INF/persistence.xml";
-
-  /** The datasource element. */
-  private static String DATASOURCE_ELEMENT = "jta-data-source";
-
-  /** The datasource regex. */
-  private static String DATASOURCE_REGEX = "</?jta-data-source>";
-
-  /** The default datasource. */
-  private static String DEFAULT_DATASOURCE = "java:jboss/datasources/ExampleDS";
+public class SubsystemDeploymentProcessor
+    implements DeploymentUnitProcessor, DeploymentUnitProcessorConstants {
 
   /** The logger. */
   private static Logger LOGGER = Logger.getLogger(SubsystemDeploymentProcessor.class);
@@ -56,14 +33,14 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
   @Override
   public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
     ResourceRoot root = phaseContext.getDeploymentUnit().getAttachment(Attachments.DEPLOYMENT_ROOT);
-    String rootName = root.getRootName().toUpperCase();
+    String rootName = root.getRootName().toLowerCase();
     VirtualFile migrationFolder = null;
     String persistenceXmlPath = null;
 
-    if (rootName.endsWith(DeploymentType.WAR.toString())) {
+    if (rootName.endsWith(war)) {
       migrationFolder = root.getRoot().getChild(MIGRATION_FOLDER_WAR_PATH);
       persistenceXmlPath = PERSISTENCE_XML_WAR_PATH;
-    } else if (rootName.endsWith(DeploymentType.JAR.toString())) {
+    } else if (rootName.endsWith(jar)) {
       migrationFolder = root.getRoot().getChild(MIGRATION_FOLDER_JAR_PATH);
       persistenceXmlPath = PERSISTENCE_XML_JAR_PATH;
     }

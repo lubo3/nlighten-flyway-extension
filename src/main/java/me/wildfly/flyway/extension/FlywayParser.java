@@ -1,4 +1,4 @@
-package me.jboss.flyway.extension;
+package me.wildfly.flyway.extension;
 
 import static org.jboss.as.controller.PersistentResourceXMLDescription.builder;
 

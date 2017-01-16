@@ -1,4 +1,4 @@
-package me.jboss.flyway.extension;
+package me.wildfly.flyway.extension;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 
@@ -19,7 +19,7 @@ import org.jboss.as.controller.parsing.ExtensionParsingContext;
 public class FlywayExtension implements Extension {
 
   /** The name space used for the {@code subsystem} element. */
-  public static final String NAMESPACE = "urn:me.jboss.flyway:1.0";
+  public static final String NAMESPACE = "urn:me.wildfly.wildfly-flyway-extension:1.0";
 
   /** The name of our subsystem within the model. */
   public static final String SUBSYSTEM_NAME = "flyway";

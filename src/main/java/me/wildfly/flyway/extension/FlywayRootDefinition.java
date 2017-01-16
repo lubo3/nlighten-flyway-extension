@@ -1,4 +1,4 @@
-package me.jboss.flyway.extension;
+package me.wildfly.flyway.extension;
 
 import java.util.Collection;
 import java.util.Collections;

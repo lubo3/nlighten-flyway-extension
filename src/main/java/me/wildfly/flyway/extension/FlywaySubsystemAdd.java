@@ -1,4 +1,4 @@
-package me.jboss.flyway.extension;
+package me.wildfly.flyway.extension;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
@@ -9,7 +9,7 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 
-import me.jboss.flyway.deployment.SubsystemDeploymentProcessor;
+import me.wildfly.flyway.extension.deployment.SubsystemDeploymentProcessor;
 
 /**
  * The FlywaySubsystemAdd class is responsible for adding the extension subsystem resource.
