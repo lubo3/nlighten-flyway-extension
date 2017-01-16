@@ -34,6 +34,7 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
   private static Logger LOGGER = Logger.getLogger(SubsystemDeploymentProcessor.class);
   
   private static final String DEFAULT_DATASOURCE_NAME = "java:comp/DefaultDataSource";
+
   /** The migration folder path. */
   private static String MIGRATION_FOLDER_PATH = "WEB-INF/classes/db/migration";
 
