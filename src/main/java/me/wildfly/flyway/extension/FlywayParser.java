@@ -1,4 +1,4 @@
-package me.jboss.flyway.extension;
+package me.wildfly.flyway.extension;
 
 import static org.jboss.as.controller.PersistentResourceXMLDescription.builder;
 
@@ -6,7 +6,7 @@ import org.jboss.as.controller.PersistentResourceXMLDescription;
 import org.jboss.as.controller.PersistentResourceXMLParser;
 
 /**
- * The subsystem parser, which uses stax to read and write to and from xml.
+ * The FlywayParser class is XML description resource.
  * 
  * @author lubo
  */
