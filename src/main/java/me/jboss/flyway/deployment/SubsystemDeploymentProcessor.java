@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import org.flywaydb.core.Flyway;
+import org.jboss.logging.Logger;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -29,6 +30,10 @@ import org.jboss.vfs.VirtualFile;
  * @author lubo
  */
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
+
+  private static Logger LOGGER = Logger.getLogger(SubsystemDeploymentProcessor.class);
+  
+  private static final String DEFAULT_DATASOURCE_NAME = "java:comp/DefaultDataSource";
 
   /** The migration folder path. */
   private static String MIGRATION_FOLDER_PATH = "WEB-INF/classes/db/migration";
@@ -85,10 +90,15 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
         }
         if (datasourceName != null && !datasourceName.isEmpty()) {
           dataSource = (DataSource) initialContext.lookup(datasourceName);
+        } else {
+            //JEE7 - no datasource=default datasource
+            dataSource = (DataSource) initialContext.lookup(DEFAULT_DATASOURCE_NAME);
         }
+      } else {
+         LOGGER.warn("No JPA context marker found. Proceed with custom datasource.");
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      LOGGER.error("Could not determine datasource for Flyway migration", e);
     }
     return dataSource;
   }
