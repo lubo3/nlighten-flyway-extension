@@ -11,8 +11,8 @@ jobs:
     get: nlighten-flyway-extension
     triger: true
     task: clean-install
-      config:
-        run:
-          path: mvn clean install
-          args:
+    config:
+      run:
+        path: mvn clean install
+        args:
    
