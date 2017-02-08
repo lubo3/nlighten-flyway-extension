@@ -1,0 +1,18 @@
+resources:
+  name:nlighten-flyway-extension
+  type:git
+  source:
+    uri:https://github.com/lubo3/nlighten-flyway-extension.git
+    branch:master
+  
+jobs:
+  name:build
+  plan:
+    get:nlighten-flyway-extension
+    triger:true
+    task:clean-install
+      config:
+        run:
+          path: mvn clean install
+          args:
+   
